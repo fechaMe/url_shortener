@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node --env-file .env.production index.js",
-    "dev": "nodemon --env-file .env --legacy-watch index.js",
+    "dev": "nodemon --env-file .env.local --legacy-watch index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "fechaMe",
@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@fastify/cors": "^9.0.1",
+    "@fastify/rate-limit": "^9.1.0",
     "fastify": "^4.28.1",
     "jose": "^5.8.0",
     "pg": "^8.11.5"

@@ -2,7 +2,7 @@ import { strict as assert } from "node:assert";
 import { randomBytes, scrypt } from "node:crypto";
 import { promisify } from "node:util";
 import { jwtVerify, SignJWT } from "jose";
-import pool from "../db.js";
+import pool from "./db.js";
 
 const genHash = async (password, salt, keylen = 32) => {
     return (
@@ -117,8 +117,8 @@ export default async function applicationAuth(fastify, opts) {
 
     async function verifyHandler(request, reply) {
         try {
-            const cookies = request.headers.cookie
-                .split("; ")
+            console.log(request.headers);
+            const cookies = request.headers.cookie.split("; ")
                 .reduce((prev, curr) => {
                     const [cookie, value] = curr.split("=");
                     prev[cookie] = value;
@@ -142,6 +142,7 @@ export default async function applicationAuth(fastify, opts) {
             // https://github.com/panva/jose/discussions/238
             assert.equal(jwtToken.payload["fgp"], userFingerprintHash);
             request.user = jwtToken.payload.sub;
+            // reply.send("Valid.")
         } catch (err) {
             console.error(err);
             reply.code(500).send("Token Invalid.");
@@ -176,8 +177,11 @@ export default async function applicationAuth(fastify, opts) {
         },
         handler: async function userShortUrlsHandler(request, reply) {
             try {
-
-                const short = await genHash(request.body.url, process.env.API_PEPPER, 5);
+                const short = await genHash(
+                    request.body.url,
+                    process.env.API_PEPPER,
+                    5,
+                );
                 console.log(request.user, short);
 
                 const newShortUrl = await pool.query(
@@ -185,7 +189,7 @@ export default async function applicationAuth(fastify, opts) {
                     [short, request.body.url, request.user],
                 );
                 console.log(newShortUrl);
-                reply.code(201).send({short});
+                reply.code(201).send({ short });
             } catch (err) {
                 console.error(err);
                 reply.code(500).send("Internal Server Error");
@@ -207,6 +211,36 @@ export default async function applicationAuth(fastify, opts) {
                 );
 
                 reply.send(user.rows);
+            } catch (err) {
+                console.error(err);
+                reply.code(500).send("Internal Server Error");
+            }
+        },
+    });
+
+    fastify.post("/authenticate", {
+        onRequest: verifyHandler,
+        schema: {
+            headers: headerSchema,
+            // response: { 200: tokenSchema },
+        },
+        handler: async (request, reply) => { reply.send("validated.")},
+    });
+
+    fastify.delete("/urls", {
+        onRequest: verifyHandler,
+        schema: {
+            headers: headerSchema,
+            // response: { 200: tokenSchema },
+        },
+        handler: async function userShortUrlsHandler(request, reply) {
+            try {
+                const user = await pool.query(
+                    "delete from short_url where username = $1 and short_url = $2",
+                    [request.user, request.body.short_url],
+                );
+                console.log(user);
+                reply.send("Deleted");
             } catch (err) {
                 console.error(err);
                 reply.code(500).send("Internal Server Error");
