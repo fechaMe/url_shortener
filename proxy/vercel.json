@@ -1,10 +1,10 @@
 {
     "rewrites": [
-      {"source": "/", "destination": "https://fechame-url-service-client.vercel.com/"},
-      {"source": "/login", "destination": "https://fechame-url-service-client.vercel.com/login"},
-      {"source": "/signup", "destination": "https://fechame-url-service-client.vercel.com/signup"},
-      {"source": "/home", "destination": "https://fechame-url-service-client.vercel.com/home"},
-      {"source": "/api/(.*)", "destination": "https://fechame-url-service-server.vercel.com/api/"},
-      {"source": "/:id", "destination": "https://fechame-url-service-server.vercel.com/:id"}
+      {"source": "/", "destination": "https://fechame-url-service-client.vercel.app/"},
+      {"source": "/login", "destination": "https://fechame-url-service-client.vercel.app/login"},
+      {"source": "/signup", "destination": "https://fechame-url-service-client.vercel.app/signup"},
+      {"source": "/home", "destination": "https://fechame-url-service-client.vercel.app/home"},
+      {"source": "/api/(.*)", "destination": "https://fechame-url-service-server.vercel.app/api/"},
+      {"source": "/:id", "destination": "https://fechame-url-service-server.vercel.app/:id"}
     ]
 }
