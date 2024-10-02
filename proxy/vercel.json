@@ -1,0 +1,10 @@
+{
+    "rewrites": [
+      {"source": "/", "destination": "https://fechame-url-service-client.vercel.com/"},
+      {"source": "/login", "destination": "https://fechame-url-service-client.vercel.com/login"},
+      {"source": "/signup", "destination": "https://fechame-url-service-client.vercel.com/signup"},
+      {"source": "/home", "destination": "https://fechame-url-service-client.com/home"},
+      {"source": "/api/(.*)", "destination": "https://fechame-url-service-server.com/api/"},
+      {"source": "/:id", "destination": "https://fechame-url-service-server/:id"}
+    ]
+}
