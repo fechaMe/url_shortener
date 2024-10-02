@@ -2,6 +2,6 @@
     "rewrites": [
         {"source": "/(login|signup|home)", "destination": "/"},
         {"source": "/api/:match", "destination": "https://fechame-url-service-server.vercel.app/api/:match"},
-        {"source": "/:id{7}", "destination": "https://fechame-url-service-server.vercel.app/:id"}
+        {"source": "/:id", "destination": "https://fechame-url-service-server.vercel.app/:id"}
       ]
 }
