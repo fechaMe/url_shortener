@@ -1,3 +1,10 @@
 {
-    "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+    "rewrites": [
+        {"source": "/", "destination": "/"},
+        {"source": "/login", "destination": "/login"},
+        {"source": "/signup", "destination": "/signup"},
+        {"source": "/home", "destination": "/home"},
+        {"source": "/api/(.*)", "destination": "https://fechame-url-service-server.vercel.app/api/"},
+        {"source": "/:id", "destination": "https://fechame-url-service-server.vercel.app/:id"}
+      ]
 }
