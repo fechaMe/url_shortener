@@ -17,7 +17,7 @@ const fastify = Fastify({
 await fastify.register(rateLimit, { global: true, max: 30, timeWindow: 1000 * 60 * 60 })
 
 await fastify.register(cors, {
-    origin: process.ENV.CLIENT_URL,
+    origin: process.env.CLIENT_URL,
     credentials: true,
 });
 
