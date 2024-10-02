@@ -11,6 +11,6 @@ export default defineConfig({
     },
     plugins: [react()],
     build: {
-        target: "ES2022" // <--------- ✅✅✅✅✅✅
+        target: "ES2022"
       },
 });

@@ -17,7 +17,7 @@ const fastify = Fastify({
 await fastify.register(rateLimit, { global: true, max: 30, timeWindow: 1000 * 60 * 60 })
 
 await fastify.register(cors, {
-    // origin: "*",
+    origin: "https://fechame-urls-shortener.vercel.app",
     credentials: true,
 });
 
