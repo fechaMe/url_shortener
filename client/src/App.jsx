@@ -6,7 +6,6 @@ import {
 import Home from "./Home.jsx";
 import LoginPage from "./LoginPage.jsx";
 import SignupPage from "./SignupPage.jsx";
-import Redirect from "./Redirect.jsx";
 import ErrorPage from "./ErrorPage.jsx";
 
 const router = createBrowserRouter([
@@ -63,18 +62,6 @@ const router = createBrowserRouter([
     {
         path: "/signup",
         element: <SignupPage />,
-    },
-    {
-        path: "/:id",
-        element: <Redirect />,
-        errorElement: <ErrorPage />,
-        loader: async ({ params }) => {
-            console.log(params.id);
-            if (params.id !== "abcde") {
-                throw new Response("Not Found", { status: 404 });
-            }
-            return null;
-        },
     },
 ]);
 
