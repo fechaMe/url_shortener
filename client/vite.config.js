@@ -10,4 +10,7 @@ export default defineConfig({
         // port: 5173,
     },
     plugins: [react()],
+    build: {
+        target: "ES2022" // <--------- ✅✅✅✅✅✅
+      },
 });
